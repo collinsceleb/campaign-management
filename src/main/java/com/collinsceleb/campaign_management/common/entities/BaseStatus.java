@@ -7,17 +7,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.collinsceleb.campaign_management.common.enums.RecordStatus;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @MappedSuperclass
+@Embeddable
 public class BaseStatus {
     @Column(name = "created_by")
     private Long createdBy;
@@ -37,10 +34,6 @@ public class BaseStatus {
 
     @Column(name = "status_change_reason", columnDefinition = "text")
     private String statusChangeReason;
-
-    @Version
-    @Column(name = "version")
-    private Long version;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
