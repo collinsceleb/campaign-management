@@ -25,9 +25,9 @@ import lombok.Setter;
 @Check(constraints = "tries >= 0")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
+    private java.util.UUID id;
 
     @Column(name = "email", length = 255, nullable = false, unique = true)
     private String email;

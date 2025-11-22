@@ -16,8 +16,8 @@ import lombok.*;
 @Builder
 public class CampaignLocationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private java.util.UUID id;
 
     @Column(nullable = false, length = 255, unique = true)
     private String name;

@@ -21,8 +21,8 @@ import lombok.*;
 @Builder
 public class CampaignEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private java.util.UUID id;
 
     @Column(nullable = false, length = 255)
     private String name;
@@ -38,19 +38,7 @@ public class CampaignEntity {
     private CampaignStatusEntity status;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "campaign_locations",
-            joinColumns = @JoinColumn(
-                    name = "campaign_id",
-                    referencedColumnName = "id",
-                    foreignKey = @ForeignKey(name = "fk_campaign_locations_campaign_id")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "location_id",
-                    referencedColumnName = "id",
-                    foreignKey = @ForeignKey(name = "fk_campaign_locations_location_id")
-            )
-    )
+    @JoinTable(name = "campaign_locations", joinColumns = @JoinColumn(name = "campaign_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_campaign_locations_campaign_id")), inverseJoinColumns = @JoinColumn(name = "location_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_campaign_locations_location_id")))
     private List<CampaignLocationEntity> locations;
 
     @ManyToOne(fetch = FetchType.LAZY)

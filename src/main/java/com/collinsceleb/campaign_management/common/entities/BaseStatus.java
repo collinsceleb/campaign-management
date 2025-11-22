@@ -17,10 +17,10 @@ import lombok.Setter;
 @Embeddable
 public class BaseStatus {
     @Column(name = "created_by")
-    private Long createdBy;
+    private java.util.UUID createdBy;
 
     @Column(name = "updated_by")
-    private Long updatedBy;
+    private java.util.UUID updatedBy;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -30,7 +30,7 @@ public class BaseStatus {
     private OffsetDateTime statusChangedAt;
 
     @Column(name = "status_changed_by")
-    private Long statusChangedBy;
+    private java.util.UUID statusChangedBy;
 
     @Column(name = "status_change_reason", columnDefinition = "text")
     private String statusChangeReason;

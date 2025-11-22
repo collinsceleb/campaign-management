@@ -18,10 +18,10 @@ import lombok.*;
 @Builder
 public class VerificationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
-    
+    private java.util.UUID id;
+
     @Column(name = "email", length = 255, nullable = false)
     private String email;
 
@@ -44,7 +44,7 @@ public class VerificationEntity {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMPTZ")
     private OffsetDateTime updatedAt;
 
-     @PrePersist
+    @PrePersist
     public void onCreate() {
         createdAt = OffsetDateTime.now();
         updatedAt = createdAt;
