@@ -1,0 +1,17 @@
+package com.collinsceleb.campaign_management.modules.auth.dto;
+
+import jakarta.validation.constraints.*;
+import lombok.Data;
+
+@Data
+public class LoginRequest {
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String confirmPassword;
+}

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.collinsceleb.campaign_management.modules.user.entity.UserEntity;
 
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
+    boolean existsByEmail(String email);
     Optional<UserEntity> findByEmail(String email);    
 }

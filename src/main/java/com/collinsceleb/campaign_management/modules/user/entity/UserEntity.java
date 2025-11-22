@@ -52,7 +52,7 @@ public class UserEntity {
     private Long version;
 
     @Embedded
-    private BaseStatus meta;
+    private BaseStatus meta = new BaseStatus();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "email_status", nullable = false)

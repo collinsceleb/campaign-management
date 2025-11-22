@@ -46,6 +46,10 @@ public class JwtService {
         return buildToken(userDetails.getUsername());
     }
 
+    public String generateToken(String username) {
+        return buildToken(username);
+    }
+
     private String buildToken(String subject) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + jwtExpiration);
