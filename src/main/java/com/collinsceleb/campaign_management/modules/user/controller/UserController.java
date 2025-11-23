@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.collinsceleb.campaign_management.modules.user.dto.UserProfileUpdateDto;
 import com.collinsceleb.campaign_management.modules.user.entity.UserEntity;
 import com.collinsceleb.campaign_management.modules.user.service.UserService;
+import com.collinsceleb.campaign_management.security.CustomUSerDetails;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,8 @@ public class UserController {
     @PatchMapping("/profile")
     public ResponseEntity<?> updateProfile(
             @RequestBody @Valid UserProfileUpdateDto request,
-            @AuthenticationPrincipal UserEntity user) {
+            @AuthenticationPrincipal CustomUSerDetails userDetails) {
+        UserEntity user = userDetails.getUser();
         UserEntity updated = userService.updateProfile(Objects.requireNonNull(user.getId()), request);
         return ResponseEntity.ok(updated);
     }

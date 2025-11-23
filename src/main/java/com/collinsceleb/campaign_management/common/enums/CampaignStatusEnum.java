@@ -1,13 +1,13 @@
 package com.collinsceleb.campaign_management.common.enums;
 
 public enum CampaignStatusEnum {
-    Draft,
-    Active,
-    Inactive,
-    Completed,
-    Running,
-    Paid,
-    Pending,
-    Failed,
-    Success,
+    DRAFT,
+    ACTIVE,
+    INACTIVE,
+    COMPLETED,
+    RUNNING,
+    PAID,
+    PENDING,
+    FAILED,
+    SUCCESS,
 }

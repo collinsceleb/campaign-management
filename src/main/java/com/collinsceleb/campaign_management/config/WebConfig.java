@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(profileInterceptor).addPathPatterns(
                 "/api/v1/campaigns/**",
-                "/api/v1/locations/**",
-                "/api/v1/status/**");
+                "/api/v1/campaign-location/**",
+                "/api/v1/campaign-status/**");
     }
 }

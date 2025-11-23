@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.collinsceleb.campaign_management.modules.user.entity.UserEntity;
+import com.collinsceleb.campaign_management.security.CustomUSerDetails;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ public class ProfileInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
             @NonNull Object handler) throws Exception {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserEntity user) {
+        if (principal instanceof CustomUSerDetails customUserDetails) {
+            UserEntity user = customUserDetails.getUser();
             if (user.getFirstName() == null || user.getLastName() == null) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setContentType("application/json");

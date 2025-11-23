@@ -14,6 +14,9 @@ public class CustomUSerDetails implements UserDetails {
     public CustomUSerDetails(UserEntity user) {
         this.user = user;
     }
+    public UserEntity getUser() {
+        return user;
+    }
     @Override
     public String getUsername() {
         return user.getEmail();
