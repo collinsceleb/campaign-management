@@ -22,7 +22,9 @@ public class CampaignController {
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CampaignEntity> createCampaign(@RequestPart("data") CreateCampaign createCampaign,
-            @RequestPart(value = "data", required = false) MultipartFile[] banners) {
+            @RequestPart(value = "banners", required = false) MultipartFile[] banners) {
+        IO.println(createCampaign);
+        IO.println(banners);
         return ResponseEntity.ok(campaignService.createCampaign(createCampaign, banners));
     }
 }

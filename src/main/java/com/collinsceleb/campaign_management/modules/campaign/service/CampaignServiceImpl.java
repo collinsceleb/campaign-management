@@ -53,8 +53,8 @@ public class CampaignServiceImpl implements CampaignService {
                 .uploadFiles(banners != null ? Arrays.asList(banners) : Collections.emptyList());
         CampaignEntity campaign = new CampaignEntity();
         campaign.setName(createCampaign.getName());
-        campaign.setFrom(createCampaign.getFromDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
-        campaign.setTo(createCampaign.getToDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
+        campaign.setFromDate(createCampaign.getFromDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
+        campaign.setToDate(createCampaign.getToDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
         campaign.setAmount(createCampaign.getAmount());
         campaign.setStatus(assignedStatus);
         campaign.setLocations(locations);

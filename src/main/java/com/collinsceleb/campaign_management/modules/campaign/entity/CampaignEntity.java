@@ -27,11 +27,11 @@ public class CampaignEntity {
     @Column(nullable = false, length = 255)
     private String name;
 
-    @Column(name = "from", columnDefinition = "TIMESTAMPTZ")
-    private OffsetDateTime from;
+    @Column(name = "from_date", columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime fromDate;
 
-    @Column(name = "to", columnDefinition = "TIMESTAMPTZ")
-    private OffsetDateTime to;
+    @Column(name = "to_date", columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime toDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
@@ -51,6 +51,7 @@ public class CampaignEntity {
     /**
      * TypeORM `simple-array` maps best to a JSON column in PostgreSQL.
      */
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private List<String> banners;
 
