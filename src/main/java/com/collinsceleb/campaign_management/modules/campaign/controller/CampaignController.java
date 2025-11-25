@@ -2,12 +2,15 @@ package com.collinsceleb.campaign_management.modules.campaign.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.collinsceleb.campaign_management.modules.campaign.dto.CampaignPagedResponse;
 import com.collinsceleb.campaign_management.modules.campaign.dto.CreateCampaign;
 import com.collinsceleb.campaign_management.modules.campaign.entity.CampaignEntity;
 import com.collinsceleb.campaign_management.modules.campaign.service.CampaignService;
@@ -23,8 +26,12 @@ public class CampaignController {
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CampaignEntity> createCampaign(@RequestPart("data") CreateCampaign createCampaign,
             @RequestPart(value = "banners", required = false) MultipartFile[] banners) {
-        IO.println(createCampaign);
-        IO.println(banners);
         return ResponseEntity.ok(campaignService.createCampaign(createCampaign, banners));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<CampaignPagedResponse> getAllCampaigns(@RequestParam int page,
+            @RequestParam int limit) {
+        return ResponseEntity.ok(campaignService.getAllCampaigns(page, limit));
     }
 }
