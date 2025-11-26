@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.collinsceleb.campaign_management.modules.campaign.dto.CampaignPagedResponse;
-import com.collinsceleb.campaign_management.modules.campaign.dto.CampaignResponse;
-import com.collinsceleb.campaign_management.modules.campaign.dto.CreateCampaign;
-import com.collinsceleb.campaign_management.modules.campaign.dto.UpdateCampaign;
+import com.collinsceleb.campaign_management.modules.campaign.dto.*;
 import com.collinsceleb.campaign_management.modules.campaign.entity.CampaignEntity;
 import com.collinsceleb.campaign_management.modules.campaign.repository.CampaignRepository;
 import com.collinsceleb.campaign_management.modules.campaignStatus.entity.CampaignStatusEntity;
@@ -67,13 +64,34 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
-    public CampaignEntity updateCampaign(java.util.UUID id, UpdateCampaign updateCampaign) {
-        return null;
+    @Transactional
+    public CampaignEntity updateCampaign(java.util.UUID id, UpdateCampaign updateCampaign, MultipartFile[] banners) {
+        if (id == null) {
+            throw new BadRequestException("Campaign ID cannot be null");
+        }
+        CampaignEntity campaign = campaignRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("Campaign not found"));
+        campaign.setName(updateCampaign.getName());
+        campaign.setFromDate(updateCampaign.getFromDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
+        campaign.setToDate(updateCampaign.getToDate().toInstant().atOffset(java.time.ZoneOffset.UTC));
+        campaign.setAmount(updateCampaign.getAmount());
+        if (updateCampaign.getStatusId() != null) {
+            campaign.setStatus(campaignStatusRepository.findById(Objects.requireNonNull(updateCampaign.getStatusId()))
+                    .orElseThrow(() -> new BadRequestException("Status not found")));
+        }
+        if (updateCampaign.getLocationIds() != null) {
+            campaign.setLocations(
+                    campaignLocationRepository.findAllById(Objects.requireNonNull(updateCampaign.getLocationIds())));
+        }
+        return campaignRepository.save(campaign);
     }
 
     @Override
     public void deleteCampaign(java.util.UUID id) {
-
+        if (id == null) {
+            throw new BadRequestException("Campaign ID cannot be null");
+        }
+        campaignRepository.deleteById(id);
     }
 
     @Override
@@ -87,6 +105,9 @@ public class CampaignServiceImpl implements CampaignService {
 
     @Override
     public CampaignEntity getCampaignById(UUID id) {
+        if (id == null) {
+            throw new BadRequestException("Campaign ID cannot be null");
+        }
         return campaignRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Campaign not found"));
     }

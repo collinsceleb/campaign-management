@@ -9,7 +9,7 @@ import com.collinsceleb.campaign_management.modules.campaign.entity.CampaignEnti
 
 public interface CampaignService {
     public CampaignEntity createCampaign(CreateCampaign createCampaign, MultipartFile[] banners);
-    public CampaignEntity updateCampaign(java.util.UUID id, UpdateCampaign updateCampaign);
+    public CampaignEntity updateCampaign(java.util.UUID id, UpdateCampaign updateCampaign, MultipartFile[] banners);
     public void deleteCampaign(java.util.UUID id);
     public CampaignPagedResponse getAllCampaigns(int page, int limit);
     public CampaignEntity getCampaignById(java.util.UUID id);
